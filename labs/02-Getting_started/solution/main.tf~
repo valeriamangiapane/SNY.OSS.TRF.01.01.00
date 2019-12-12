@@ -1,6 +1,6 @@
 // Configure the Google Cloud provider
 provider "google" {
- credentials = "${file("C:/profili/U381310/Desktop/Valeria/Formazione/Terraform/SNY-OSS-TRF-01-01-00-870577b1e676.json")}"
+ credentials = "${file("/home/vagrant/SNY-OSS-TRF-01-01-00-870577b1e676.json")}"
  project     = "sny-oss-trf-01-01-00"
  region      = "us-west1-a"
 }
@@ -12,7 +12,7 @@ resource "random_id" "instance_id" {
 
 // A single Google Cloud Engine instance
 resource "google_compute_instance" "default" {
- name         = "valeria-${random_id.instance_id.hex}"
+ name         = "my-vm-${random_id.instance_id.hex}"
  machine_type = "f1-micro"
  zone         = "us-west1-a"
 
@@ -29,9 +29,4 @@ resource "google_compute_instance" "default" {
      // Include this section to give the VM an external ip address
    }
  }
-
- metadata = {
-   ssh-keys = "denis_maggiorotto:${file("C:/Users/U381310/.ssh/id_rsa.pub")}"
- }
-
 }
